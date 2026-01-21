@@ -15,13 +15,6 @@ class Configuration(BaseModel):
         },
     )
 
-    web_search_model: str = Field(
-        default="gemini-2.0-flash",
-        metadata={
-            "description": "The name of the language model to use for the agent's query generation."
-        },
-    )
-
     reflection_model: str = Field(
         default="llama-3.3-70b-versatile",
         metadata={

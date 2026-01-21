@@ -13,7 +13,7 @@ import operator
 class OverallState(TypedDict):
     messages: Annotated[list, add_messages]
     search_query: Annotated[list, operator.add]
-    web_research_result: Annotated[list, operator.add]
+    file_research_result: Annotated[list, operator.add]
     sources_gathered: Annotated[list, operator.add]
     initial_search_query_count: int
     max_research_loops: int
@@ -38,7 +38,7 @@ class QueryGenerationState(TypedDict):
     search_query: list[Query]
 
 
-class WebSearchState(TypedDict):
+class FileSearchState(TypedDict):
     search_query: str
     id: str
 

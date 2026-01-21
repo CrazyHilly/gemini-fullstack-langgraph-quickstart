@@ -24,6 +24,11 @@ def main() -> None:
         default="llama-3.3-70b-versatile",
         help="Model for the final answer",
     )
+    parser.add_argument(
+        "--dir",
+        default="./data",
+        help="Directory for search in local files"
+    )
     args = parser.parse_args()
 
     state = {
@@ -32,8 +37,14 @@ def main() -> None:
         "max_research_loops": args.max_loops,
         "reasoning_model": args.reasoning_model,
     }
-
-    result = graph.invoke(state)
+    
+    result = graph.invoke(state, config={
+        "configurable": {
+            "reflection_model": args.reasoning_model,
+            "answer_model": args.reasoning_model,
+            "search_directory": args.dir,
+        }
+    })
     messages = result.get("messages", [])
     if messages:
         print(messages[-1].content)

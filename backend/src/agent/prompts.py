@@ -6,7 +6,7 @@ def get_current_date():
     return datetime.now().strftime("%B %d, %Y")
 
 
-query_writer_instructions = """Your goal is to generate sophisticated and diverse web search queries. These queries are intended for an advanced automated web research tool capable of analyzing complex results, following links, and synthesizing information.
+query_writer_instructions = """Your goal is to generate sophisticated and diverse file search queries. These queries are intended for an advanced automated file research tool capable of analyzing complex results, following links, and synthesizing information.
 
 Instructions:
 - Always prefer a single search query, only add another query if the original question requests multiple aspects or elements and one query is not enough.
@@ -34,29 +34,18 @@ Topic: What revenue grew more last year apple stock or the number of people buyi
 Context: {research_topic}"""
 
 
-web_searcher_instructions = """Conduct targeted Google Searches to gather the most recent, credible information on "{research_topic}" and synthesize it into a verifiable text artifact.
-
-Instructions:
-- Query should ensure that the most current information is gathered. The current date is {current_date}.
-- Conduct multiple, diverse searches to gather comprehensive information.
-- Consolidate key findings while meticulously tracking the source(s) for each specific piece of information.
-- The output should be a well-written summary or report based on your search findings. 
-- Only include the information found in the search results, don't make up any information.
-
-Research Topic:
-{research_topic}
-"""
-
 reflection_instructions = """You are an expert research assistant analyzing summaries about "{research_topic}".
 
 Instructions:
+- If summaries contain "No data found" or only unrelated information, set "is_sufficient" to true and stop searching.
+- If summaries are unrelated to "{research_topic}", set "is_sufficient" to true with empty knowledge_gap and follow_up_queries.
 - Identify knowledge gaps or areas that need deeper exploration and generate a follow-up query. (1 or multiple).
 - If provided summaries are sufficient to answer the user's question, don't generate a follow-up query.
 - If there is a knowledge gap, generate a follow-up query that would help expand your understanding.
 - Focus on technical details, implementation specifics, or emerging trends that weren't fully covered.
 
 Requirements:
-- Ensure the follow-up query is self-contained and includes necessary context for web search.
+- Ensure the follow-up query is self-contained and includes necessary context for file search.
 
 Output Format:
 - Format your response as a JSON object with these exact keys:
